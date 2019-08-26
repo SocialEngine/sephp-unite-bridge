@@ -1,0 +1,394 @@
+{
+  "type": "module",
+  "name": "unite-bridge",
+  "version": "1.0.0",
+  "revision": null,
+  "path": "application\/modules\/UniteBridge",
+  "repository": null,
+  "sku": "unite-bridge",
+  "date": "Mon, 26 Aug 2019 19:01:41 +0000",
+  "title": "Unite Bridge",
+  "description": "",
+  "thumb": null,
+  "developer": null,
+  "authors": [
+    "Webligo"
+  ],
+  "meta": {
+    "date": "Mon, 26 Aug 2019 19:01:41 +0000",
+    "title": "Unite Bridge",
+    "description": "",
+    "developer": null,
+    "authors": [
+      "Webligo"
+    ],
+    "changeLog": null
+  },
+  "actions": [
+    "install",
+    "upgrade",
+    "refresh",
+    "enable",
+    "disable"
+  ],
+  "callback": {
+    "path": null,
+    "class": "Engine_Package_Installer_Module",
+    "priority": 100
+  },
+  "dependencies": null,
+  "tests": [
+    
+  ],
+  "permissions": [
+    
+  ],
+  "structure": {
+    "application\/modules\/UniteBridge": {
+      "type": "directory",
+      "path": "application\/modules\/UniteBridge",
+      "structure": [
+        {
+          "path": "settings",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 128,
+          "sha1": null
+        },
+        {
+          "path": "settings\/my-install.sql",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 1225,
+          "sha1": "c33a06556c6dfe6f1cc41f739ed6223a5f188275"
+        },
+        {
+          "path": "settings\/manifest.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 2533,
+          "sha1": "b2dc79328cc38d7a9a78f80122eaa332a17c8144"
+        },
+        {
+          "path": "Form",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 128,
+          "sha1": null
+        },
+        {
+          "path": "Form\/Admin",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "Form\/Admin\/Connect.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 604,
+          "sha1": "28904285999f3d06f924639d5af52c588aeb4434"
+        },
+        {
+          "path": "Form\/.htempty",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 0,
+          "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+        },
+        {
+          "path": "externals",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 192,
+          "sha1": null
+        },
+        {
+          "path": "externals\/images",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "externals\/images\/.htempty",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 0,
+          "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+        },
+        {
+          "path": "externals\/styles",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "externals\/styles\/main.css",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 0,
+          "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+        },
+        {
+          "path": "externals\/scripts",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "externals\/scripts\/.htempty",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 0,
+          "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+        },
+        {
+          "path": "externals\/.htaccess",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 147,
+          "sha1": "9f1638a8edbe1c5d28789e017fb35b2f2465f01e"
+        },
+        {
+          "path": "Plugin",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "Plugin\/Core.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 4594,
+          "sha1": "303defd6de3ac3036c2694ffa9aa5c2851c91789"
+        },
+        {
+          "path": "Bootstrap.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 2438,
+          "sha1": "f756c69822ec22060ed9a42ff54108a3a55d55a8"
+        },
+        {
+          "path": "Controller",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "Controller\/Base.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 2127,
+          "sha1": "7151c74d4adbc6bfb27b4ce7d1b415a252aab96f"
+        },
+        {
+          "path": "Migrate",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 128,
+          "sha1": null
+        },
+        {
+          "path": "Migrate\/Users.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 1024,
+          "sha1": "0ccf12f0b4934aafde2953d253dc0684cdfe177a"
+        },
+        {
+          "path": "Migrate\/Base.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 1300,
+          "sha1": "361bce5abb51e1dacc7ad5d2dc6667eec6ce5dcd"
+        },
+        {
+          "path": "ApiResource",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 128,
+          "sha1": null
+        },
+        {
+          "path": "ApiResource\/User.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 1090,
+          "sha1": "5835f9dbb46994c6ebe42eee9084e24416566ccc"
+        },
+        {
+          "path": "ApiResource\/Base.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 649,
+          "sha1": "59d6708696f4968b07eba4c6d768a8bf76cf24db"
+        },
+        {
+          "path": "Model",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "Model\/DbTable",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "Model\/DbTable\/.htempty",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 0,
+          "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+        },
+        {
+          "path": "controllers",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 224,
+          "sha1": null
+        },
+        {
+          "path": "controllers\/ApiController.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 703,
+          "sha1": "e7e9ac7de3db7729a49b778056b4dda7190a412a"
+        },
+        {
+          "path": "controllers\/ApiItemController.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 193,
+          "sha1": "7c46e0af282c383800555e5044d01864cfcd893a"
+        },
+        {
+          "path": "controllers\/MigrationController.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 619,
+          "sha1": "664d5e7fb72b8b0e415b72dc9d7d6c4b19769792"
+        },
+        {
+          "path": "controllers\/AdminManageController.php",
+          "dir": false,
+          "file": true,
+          "perms": "0755",
+          "size": 2199,
+          "sha1": "202bfad667d485be1fabd36d1f0a3abe943a844c"
+        },
+        {
+          "path": "controllers\/IndexController.php",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 5842,
+          "sha1": "3d4e267351aa6ce46b51d9a16f251f7b420f8a71"
+        },
+        {
+          "path": "views",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "views\/scripts",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 128,
+          "sha1": null
+        },
+        {
+          "path": "views\/scripts\/index",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "views\/scripts\/index\/index.tpl",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 84,
+          "sha1": "59847d79b676160fbdecaecc133e17455dfd501d"
+        },
+        {
+          "path": "views\/scripts\/admin-manage",
+          "dir": true,
+          "file": false,
+          "perms": "0755",
+          "size": 96,
+          "sha1": null
+        },
+        {
+          "path": "views\/scripts\/admin-manage\/index.tpl",
+          "dir": false,
+          "file": true,
+          "perms": "0644",
+          "size": 352,
+          "sha1": "71d37f6bbad2ab5d1aedc6be75649599a0c94b32"
+        }
+      ]
+    },
+    "application\/languages\/en\/unite-bridge.csv": {
+      "type": "file",
+      "path": "application\/languages\/en\/unite-bridge.csv",
+      "structure": {
+        "path": "unite-bridge.csv",
+        "dir": false,
+        "file": true,
+        "perms": "0777",
+        "size": 0,
+        "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      }
+    }
+  }
+}
