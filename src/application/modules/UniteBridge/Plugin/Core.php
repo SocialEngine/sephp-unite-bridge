@@ -3,12 +3,20 @@
 class UniteBridge_Plugin_Core {
     private $unite;
 
+    private $isEnabled = false;
+
     public function __construct () {
         $settings = Engine_Api::_()->getApi('settings', 'core');
         $this->unite = $settings->unite;
+        if ($this->unite['url']) {
+            $this->isEnabled = true;
+        }
     }
 
     public function onRenderLayoutDefault ($event) {
+        if (!$this->isEnabled) {
+            return false;
+        }
         $view = $event->getPayload();
         if ($view instanceof Zend_View) {
             $src = $this->unite['url'] . '/storage/' . $this->unite['siteId'] . '/' . $this->unite['versionId'] . '/js/bootstrap.js';
@@ -57,6 +65,9 @@ class UniteBridge_Plugin_Core {
     }
 
     public function onRenderContent ($event) {
+        if (!$this->isEnabled) {
+            return false;
+        }
         $payload = $event->getPayload();
         if ($payload['name'] == 'core_error_requireuser') {
             $url = $this->unite['url'] . '/login?return=' . urlencode($_SERVER['REQUEST_URI']);

@@ -9,6 +9,10 @@ class UniteBridge_Bootstrap extends Engine_Application_Bootstrap_Abstract {
         $settings = Engine_Api::_()->getApi('settings', 'core');
         $this->unite = $settings->unite;
 
+        if (!$this->unite['url']) {
+            return null;
+        }
+
         $this->initRedirects();
     }
 
