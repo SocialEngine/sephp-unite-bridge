@@ -13,8 +13,8 @@ class UniteBridge_Migrate_Users extends UniteBridge_Migrate_Base {
         'groups' => 'groups'
     );
 
-    protected function joinLeft ($query) {
-        return $query
+    protected function query ($query) {
+        $query
             ->joinLeft('engine4_album_photos', 'engine4_album_photos.photo_id = engine4_users.photo_id', array(
                 'photo_file_id' => 'file_id'
             ))

@@ -1,11 +1,11 @@
 <?php
 
 class UniteBridge_Migrate_Base {
-    private $db;
+    protected $db;
 
-    private $page = 1;
+    protected $page = 1;
 
-    private $limit = 100;
+    protected $limit = 100;
 
     protected $table = null;
 
@@ -17,21 +17,51 @@ class UniteBridge_Migrate_Base {
         $this->limit = $options['limit'];
     }
 
-    protected function joinLeft () {}
+    /**
+     * @param $query Zend_Db_Select
+     */
+    protected function query ($query) {}
+
+    /**
+     * @param $query Zend_Db_Select
+     */
+    protected function queryCount ($query) {}
+
+    protected function records ($records) {
+        return $records;
+    }
+
+    protected function getComments ($id) {
+        return $this->db->select()
+            ->from('engine4_activity_comments')
+            ->where('resource_id = ?', $id)
+            ->query()
+            ->fetchAll();
+    }
+
+    protected function getLikes ($id) {
+        return $this->db->select()
+            ->from('engine4_activity_likes')
+            ->where('resource_id = ?', $id)
+            ->query()
+            ->fetchAll();
+    }
 
     public function run () {
         $records = array();
 
-        $total = $this->db->select()
-            ->from($this->table)
-            ->query()
-            ->rowCount();
+        $query = $this->db->select()
+            ->from($this->table);
+
+        $this->queryCount($query);
+
+        $total = $query->query()->rowCount();
 
         $query = $this->db->select()
             ->from($this->table)
             ->limitPage($this->page, $this->limit);
 
-        $this->joinLeft($query);
+        $this->query($query);
 
         $rows = $query->query()->fetchAll();
         foreach ($rows as $row) {
@@ -47,6 +77,9 @@ class UniteBridge_Migrate_Base {
             }
             $records[] = $map;
         }
+
+        $records = $this->records($records);
+
         return array(
             'total' => $total,
             'records' => $records

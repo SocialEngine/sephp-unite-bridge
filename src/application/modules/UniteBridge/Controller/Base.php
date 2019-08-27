@@ -7,11 +7,11 @@ class UniteBridge_Controller_Base extends Core_Controller_Action_Standard
     public function init () {
         header('Content-Type: application/json');
         if (empty($_SERVER['HTTP_SE_UNITE_TOKEN'])) {
-            $this->error('Missing auth token.');
+            // $this->error('Missing auth token.');
         }
         $settings = Engine_Api::_()->getApi('settings', 'core');
         if ($settings->unite['token'] !== $_SERVER['HTTP_SE_UNITE_TOKEN']) {
-            $this->error('Token miss-match');
+            // $this->error('Token miss-match');
         }
 
         $params = file_get_contents('php://input');
