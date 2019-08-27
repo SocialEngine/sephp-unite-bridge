@@ -33,4 +33,8 @@ class UniteBridge_MigrationController extends UniteBridge_Controller_Base
     public function blogsAction () {
         return $this->migrate('UniteBridge_Migrate_Blogs');
     }
+
+    public function blogsCategoriesAction () {
+        return $this->migrate('UniteBridge_Migrate_BlogsCategories');
+    }
 }

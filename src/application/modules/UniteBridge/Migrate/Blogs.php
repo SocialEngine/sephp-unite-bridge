@@ -6,4 +6,8 @@ class UniteBridge_Migrate_Blogs extends UniteBridge_Migrate_Actions {
         'table' => 'engine4_blog_blogs',
         'objectType' => 'blog'
     );
+
+    protected $category = array(
+        'table' => 'engine4_blog_categories'
+    );
 }
