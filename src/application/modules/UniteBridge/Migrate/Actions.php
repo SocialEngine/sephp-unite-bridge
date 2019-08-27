@@ -10,8 +10,16 @@ class UniteBridge_Migrate_Actions extends UniteBridge_Migrate_Base {
         'body' => 'body',
         'params' => 'params',
         'date' => 'date',
-        'object_id' => 'user_id'
+        'object_id' => 'object_id',
+        'object_type' => 'object_type',
+        'subject_type' => 'subject_type',
+        'subject_id' => 'subject_id',
+        'subject' => 'subject',
+        'privacy' => 'privacy',
+        'object_privacy' => 'object_privacy'
     );
+
+    protected $join = array();
 
     protected function queryCount ($query) {
         $this->query($query);
@@ -19,6 +27,18 @@ class UniteBridge_Migrate_Actions extends UniteBridge_Migrate_Base {
 
     protected function query ($query) {
         $query->where('type = ?', $this->actionType);
+
+        if (!empty($this->join['table'])) {
+            $query->joinLeft(
+                $this->join['table'],
+                'engine4_activity_actions.object_type = \'' . $this->join['objectType'] . '\' AND engine4_blog_blogs.blog_id = engine4_activity_actions.object_id',
+                array(
+                    'subject' => 'title',
+                    'body' => 'body',
+                    'object_privacy' => 'view_privacy'
+                )
+            );
+        }
     }
 
     protected function records ($records) {
