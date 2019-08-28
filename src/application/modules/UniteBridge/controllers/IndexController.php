@@ -51,7 +51,6 @@ class UniteBridge_IndexController extends Core_Controller_Action_Standard
                 $uniteUser = $data->viewer;
                 $res = $userTable->createRow()->setFromArray(array(
                     'email' => $uniteUser->email,
-                    'unite_id' => $uniteUser->id,
                     'username' => $uniteUser->username,
                     'displayname' => $uniteUser->name
                 ))->save();

@@ -10,5 +10,3 @@ INSERT IGNORE INTO `engine4_core_settings` (`name` , `value`) VALUES ('unite.vie
 
 INSERT IGNORE INTO `engine4_core_menuitems` (`name`, `module`, `label`, `plugin`, `params`, `menu`, `submenu`, `order`) VALUES
 ('core_admin_main_plugins_unite', 'unite-bridge', 'Unite Bridge', '', '{"route":"admin_default","module":"unite-bridge","controller":"manage"}', 'core_admin_main_plugins', '', 999);
-
-ALTER TABLE `engine4_users` ADD `unite_id` BIGINT(11) UNSIGNED NOT NULL DEFAULT '0' AFTER `user_id`;

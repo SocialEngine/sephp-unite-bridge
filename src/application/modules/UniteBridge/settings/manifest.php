@@ -39,6 +39,10 @@
         array(
             'event' => 'onRenderLayoutDefault',
             'resource' => 'UniteBridge_Plugin_Core'
+        ),
+        array(
+            'event' => 'onItemPhoto',
+            'resource' => 'UniteBridge_Plugin_Photo'
         )
     ),
     // Routes --------------------------------------------------------------------

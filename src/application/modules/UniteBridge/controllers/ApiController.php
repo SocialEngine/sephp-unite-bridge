@@ -17,4 +17,8 @@ class UniteBridge_ApiController extends UniteBridge_Controller_Base
             $this->error($e->getMessage());
         }
     }
+
+    public function usersAction () {
+        return $this->apiResource('UniteBridge_ApiResource_User');
+    }
 }

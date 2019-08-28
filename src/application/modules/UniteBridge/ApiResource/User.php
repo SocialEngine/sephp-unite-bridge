@@ -36,8 +36,18 @@ class UniteBridge_ApiResource_User extends UniteBridge_ApiResource_Base {
                     $user->{$name} = $data->{$key};
                 }
             }
+            $user->modified_date = date('Y-m-d H:i:s');
             $user->save();
             return $user;
         });
+    }
+
+    public function post ($data) {
+        $userTable = Engine_Api::_()->getDbtable('users', 'user');
+        return $userTable->createRow()->setFromArray(array(
+            'email' => $data->email,
+            'username' => $data->username,
+            'displayname' => $data->name
+        ))->save();
     }
 }
