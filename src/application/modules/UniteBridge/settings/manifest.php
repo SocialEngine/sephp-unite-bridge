@@ -47,6 +47,18 @@
     ),
     // Routes --------------------------------------------------------------------
     'routes' => array(
+        'bridge_api_item' => array(
+            'route' => 'bridge/api/:action/:item',
+            'defaults' => array(
+                'module' => 'unite-bridge',
+                'controller' => 'item',
+                'action' => 'index'
+            ),
+            'reqs' => array(
+                'action' => '\D+',
+                'item' => '[0-9]+'
+            )
+        ),
         'bridge_api' => array(
             'route' => 'bridge/api/:action',
             'defaults' => array(
@@ -58,19 +70,8 @@
                 'action' => '\D+'
             )
         ),
-        'bridge_api_item' => array(
-            'route' => 'bridge/api/:action/:item',
-            'defaults' => array(
-                'module' => 'unite-bridge',
-                'controller' => 'apiitem',
-                'action' => 'index'
-            ),
-            'reqs' => array(
-                'action' => '\D+'
-            )
-        ),
         'bridge_connect' => array(
-            'route' => 'bridge/:action',
+            'route' => 'bridge/connect/:action',
             'defaults' => array(
                 'module' => 'unite-bridge',
                 'controller' => 'index',

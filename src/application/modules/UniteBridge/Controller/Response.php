@@ -6,4 +6,10 @@ class UniteBridge_Controller_Response {
         echo json_encode($response);
         exit;
     }
+
+    static public function error (Exception $exception) {
+        self::json([
+            'error' => $exception->getMessage()
+        ]);
+    }
 }

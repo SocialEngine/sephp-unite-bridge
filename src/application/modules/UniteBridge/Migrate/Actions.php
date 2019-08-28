@@ -37,8 +37,8 @@ class UniteBridge_Migrate_Actions extends UniteBridge_Migrate_Base {
                 'engine4_activity_actions.object_type = \'' . $this->join['objectType'] . '\' AND ' . $this->join['table'] . '.blog_id = engine4_activity_actions.object_id',
                 array(
                     'subject' => 'title',
-                    'body' => 'body',
-                    'object_privacy' => 'view_privacy'
+                    'body' => 'body'
+                    // 'object_privacy' => 'view_privacy'
                 )
             );
 

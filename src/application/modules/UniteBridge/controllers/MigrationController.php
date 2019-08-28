@@ -9,13 +9,17 @@ class UniteBridge_MigrationController extends UniteBridge_Controller_Base
         } catch (Exception $e) {
             return $this->error($e->getMessage());
         }
-        $obj = $ref->newInstance(array(
-            'page' => $this->getRequest()->getParam('page'),
-            'limit' => $this->getRequest()->getParam('limit', 100)
-        ));
-        UniteBridge_Controller_Response::json(
-            call_user_func(array($obj, 'run'))
-        );
+        try {
+            $obj = $ref->newInstance(array(
+                'page' => $this->getRequest()->getParam('page', 1),
+                'limit' => $this->getRequest()->getParam('limit', 100)
+            ));
+            UniteBridge_Controller_Response::json(
+                call_user_func(array($obj, 'run'))
+            );
+        } catch (Exception $e) {
+            UniteBridge_Controller_Response::error($e);
+        }
     }
 
     public function connectionsAction () {
