@@ -51,7 +51,7 @@ class UniteBridge_Controller_Base extends Core_Controller_Action_Standard
                     $response[$key] = utf8_encode($value);
                 }
             }
-            return $this->sendJson($response);
+            UniteBridge_Controller_Response::json($response);
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }
@@ -64,12 +64,8 @@ class UniteBridge_Controller_Base extends Core_Controller_Action_Standard
         return isset($this->params[$key]) ? $this->params[$key] : $default;
     }
 
-    public function sendJson($response) {
-        return parent::sendJson($response);
-    }
-
     public function error ($message) {
-        $this->sendJson(array(
+        UniteBridge_Controller_Response::json(array(
             'error' => $message
         ));
     }

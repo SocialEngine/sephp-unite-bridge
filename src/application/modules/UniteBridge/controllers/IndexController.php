@@ -147,6 +147,6 @@ class UniteBridge_IndexController extends Core_Controller_Action_Standard
                 'token' => $token
             );
         }
-        return $this->sendJson($response);
+        UniteBridge_Controller_Response::json($response);
     }
 }

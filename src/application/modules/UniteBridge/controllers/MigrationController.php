@@ -13,7 +13,7 @@ class UniteBridge_MigrationController extends UniteBridge_Controller_Base
             'page' => $this->getRequest()->getParam('page'),
             'limit' => $this->getRequest()->getParam('limit', 100)
         ));
-        return $this->sendJson(
+        UniteBridge_Controller_Response::json(
             call_user_func(array($obj, 'run'))
         );
     }

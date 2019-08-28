@@ -10,7 +10,7 @@ class UniteBridge_ApiController extends UniteBridge_Controller_Base
                 ->where('user_id = ?', $auth->user_id);
             $user = $userTable->fetchRow($userSelect);
             $isValidPassword = Engine_Api::_()->user()->checkCredential($user->getIdentity(), $auth->password);
-            $this->sendJson(array(
+            UniteBridge_Controller_Response::json(array(
                 'isValidPassword' => $isValidPassword
             ));
         } catch (Exception $e) {
