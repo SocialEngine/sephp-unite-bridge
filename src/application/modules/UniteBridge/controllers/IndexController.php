@@ -107,7 +107,7 @@ class UniteBridge_IndexController extends Core_Controller_Action_Standard
         return $this->_helper->redirector->gotoRoute(array('action' => 'home'), 'user_general', true);
     }
 
-    public function connectAction () {
+    public function authAction () {
         $settings = Engine_Api::_()->getApi('settings', 'core');
         $settings->reloadSettings();
         $response = null;
