@@ -1,7 +1,6 @@
 <?php
 
-class UniteBridge_Controller_Base extends Core_Controller_Action_Standard
-{
+class UniteBridge_Controller_Base extends Core_Controller_Action_Standard {
     private $params = array();
 
     public function init () {

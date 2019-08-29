@@ -74,6 +74,7 @@ class UniteBridge_Plugin_Core {
             header('Location: ' . $url);
             exit;
         } else if ($payload['name'] == 'header') {
+            $headerComponent = $this->unite['componentHeader'];
             $event->setResponse('
 <div id="root-loader-container">
 <svg id="root-loader" viewBox="-25 -25 100 100" preserveAspectRatio>
@@ -95,13 +96,14 @@ class UniteBridge_Plugin_Core {
     </path>
 </svg>
 </div>
-<div data-render="@SE/SEPHPBridge/Layout/Header.js"></div>
+<div data-render="' . $headerComponent . '"></div>
 ');
         } else if ($payload['name'] == 'footer') {
             $url = $this->unite['url'] . '/storage/' . $this->unite['siteId'] . '/' . $this->unite['versionId'] . '/js';
             $parsed = parse_url($this->unite['url']);
+            $footerComponent = $this->unite['componentFooter'];
             $event->setResponse('
-                <div data-render="@SE/SEPHPBridge/Layout/Footer.js"></div>
+                <div data-render="' . $footerComponent . '"></div>
                 <div id="root"></div>
                 <script
                     src="' . $url . '/init.js"
