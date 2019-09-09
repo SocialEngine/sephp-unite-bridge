@@ -70,6 +70,10 @@ class UniteBridge_Plugin_Core {
         }
         $payload = $event->getPayload();
         if ($payload['name'] == 'core_error_requireuser') {
+            $viewer = Engine_Api::_()->user()->getViewer();
+            var_dump($viewer->getIdentity());
+            var_dump($_SESSION);
+            exit('requires user...');
             $url = $this->unite['url'] . '/login?return=' . urlencode($_SERVER['REQUEST_URI']);
             header('Location: ' . $url);
             exit;

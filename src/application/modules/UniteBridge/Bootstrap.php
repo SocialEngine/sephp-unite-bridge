@@ -21,6 +21,7 @@ class UniteBridge_Bootstrap extends Engine_Application_Bootstrap_Abstract {
         $url = $settings->unite['url'];
         $redirects = array(
             '/members/home' => '/',
+            '/home/action/home' => '/',
             '/profile/:name' => '/u/:name',
             '/members/settings/general' => '/account/settings',
             '/members/settings/privacy' => '/account/privacy',

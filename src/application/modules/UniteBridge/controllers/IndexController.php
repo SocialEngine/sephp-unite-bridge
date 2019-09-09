@@ -10,9 +10,7 @@ function generateRandomString($length = 10) {
     return $randomString;
 }
 
-
-class UniteBridge_IndexController extends Core_Controller_Action_Standard
-{
+class UniteBridge_IndexController extends Core_Controller_Action_Standard {
     public function ssoAction () {
         if ($this->getRequest()->get('logout')) {
             $viewer = Engine_Api::_()->user()->getViewer();
@@ -79,7 +77,8 @@ class UniteBridge_IndexController extends Core_Controller_Action_Standard
             $db->beginTransaction();
             try {
                 $user->setFromArray(array(
-                    'password' => $temp
+                    'password' => $temp,
+                    'enabled' => '1'
                 ));
                 $user->save();
 
@@ -90,7 +89,15 @@ class UniteBridge_IndexController extends Core_Controller_Action_Standard
                 exit;
             }
 
-            Engine_Api::_()->user()->authenticate($user['email'], $temp);
+            $authResult = Engine_Api::_()->user()->authenticate($user['email'], $temp);
+            $authCode = $authResult->getCode();
+            Engine_Api::_()->user()->setViewer();
+
+            if ($authCode != Zend_Auth_Result::SUCCESS) {
+                echo "failed<br />";
+                var_dump($authCode);
+                exit;
+            }
 
             $loginTable = Engine_Api::_()->getDbtable('logins', 'user');
             $insert = array(
@@ -103,6 +110,16 @@ class UniteBridge_IndexController extends Core_Controller_Action_Standard
             );
             $loginTable->insert($insert);
             $_SESSION['login_id'] = $login_id = $loginTable->getAdapter()->lastInsertId();
+            $viewer = Engine_Api::_()->user()->getViewer();
+            if ($viewer->getIdentity()) {
+                $viewer->lastlogin_date = date("Y-m-d H:i:s");
+                if( 'cli' !== PHP_SAPI ) {
+                    $viewer->lastlogin_ip = $ipExpr;
+                }
+                $viewer->save();
+                Engine_Api::_()->getDbtable('actions', 'activity')
+                    ->addActivity($viewer, $viewer, 'login');
+            }
         }
         return $this->_helper->redirector->gotoRoute(array('action' => 'home'), 'user_general', true);
     }
