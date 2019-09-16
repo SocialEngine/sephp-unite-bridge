@@ -11,6 +11,8 @@ class UniteBridge_Migrate_Base {
 
     protected $map = array();
 
+    protected $mapCustom = [];
+
     public function __construct ($options) {
         $this->db = Engine_Db_Table::getDefaultAdapter();
         $this->page = $options['page'];
@@ -31,17 +33,19 @@ class UniteBridge_Migrate_Base {
         return $records;
     }
 
-    protected function getComments ($id) {
+    protected function getComments ($id, $type) {
         return $this->db->select()
-            ->from('engine4_activity_comments')
+            ->from('engine4_core_comments')
+            ->where('resource_type = ?', $type)
             ->where('resource_id = ?', $id)
             ->query()
             ->fetchAll();
     }
 
-    protected function getLikes ($id) {
+    protected function getLikes ($id, $type) {
         return $this->db->select()
-            ->from('engine4_activity_likes')
+            ->from('engine4_core_likes')
+            ->where('resource_type = ?', $type)
             ->where('resource_id = ?', $id)
             ->query()
             ->fetchAll();
@@ -69,7 +73,9 @@ class UniteBridge_Migrate_Base {
             foreach ($rows as $row) {
                 $map = array();
                 foreach ($row as $key => $value) {
-                    if (count($this->map)) {
+                    if (count($this->mapCustom) && in_array($key, $this->mapCustom)) {
+                        // $key = $key;
+                    } else if (count($this->map)) {
                         if (!isset($this->map[$key])) {
                             continue;
                         }

@@ -19,6 +19,7 @@ class UniteBridge_Bootstrap extends Engine_Application_Bootstrap_Abstract {
     private function initRedirects () {
         $settings = Engine_Api::_()->getApi('settings', 'core');
         $url = $settings->unite['url'];
+        return null;
         $redirects = array(
             '/members/home' => '/',
             '/home/action/home' => '/',

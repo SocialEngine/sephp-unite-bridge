@@ -4,6 +4,13 @@ class UniteBridge_Migrate_Actions extends UniteBridge_Migrate_Base {
 
     protected $table = 'engine4_activity_actions';
 
+    protected $resourceType = 'blog';
+
+    protected $columns = [
+        'id' => 'blog_id',
+        'body' => 'body'
+    ];
+
     protected $map = array(
         'action_id' => 'id',
         'type' => 'type',
@@ -29,16 +36,15 @@ class UniteBridge_Migrate_Actions extends UniteBridge_Migrate_Base {
     }
 
     protected function query ($query) {
-        $query->where('type = ?', $this->actionType);
+        $query->where($this->table . '.type = ?', $this->actionType);
 
         if (!empty($this->join['table'])) {
             $query->joinLeft(
                 $this->join['table'],
-                'engine4_activity_actions.object_type = \'' . $this->join['objectType'] . '\' AND ' . $this->join['table'] . '.blog_id = engine4_activity_actions.object_id',
+                'engine4_activity_actions.object_type = \'' . $this->join['objectType'] . '\' AND ' . $this->join['table'] . '.' . $this->columns['id'] . ' = engine4_activity_actions.object_id',
                 array(
                     'subject' => 'title',
-                    'body' => 'body'
-                    // 'object_privacy' => 'view_privacy'
+                    'body' => $this->columns['body']
                 )
             );
 
@@ -57,11 +63,15 @@ class UniteBridge_Migrate_Actions extends UniteBridge_Migrate_Base {
     protected function records ($records) {
         $response = [];
         foreach ($records as $record) {
-            $record['comments'] = $this->getComments($record['id']);
-            $record['reactions'] = $this->getLikes($record['id']);
+            $record['comments'] = $this->getComments($record['object_id'], $this->resourceType);
+            $record['reactions'] = $this->getLikes($record['object_id'], $this->resourceType);
 
-            $response[] = $record;
+            $response[] = $this->record($record);
         }
         return $response;
+    }
+
+    protected function record ($record) {
+        return $record;
     }
 }
