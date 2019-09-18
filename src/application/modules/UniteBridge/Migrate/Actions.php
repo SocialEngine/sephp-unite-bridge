@@ -11,6 +11,8 @@ class UniteBridge_Migrate_Actions extends UniteBridge_Migrate_Base {
         'body' => 'body'
     ];
 
+    protected $merge = [];
+
     protected $map = array(
         'action_id' => 'id',
         'type' => 'type',
@@ -42,10 +44,10 @@ class UniteBridge_Migrate_Actions extends UniteBridge_Migrate_Base {
             $query->joinLeft(
                 $this->join['table'],
                 'engine4_activity_actions.object_type = \'' . $this->join['objectType'] . '\' AND ' . $this->join['table'] . '.' . $this->columns['id'] . ' = engine4_activity_actions.object_id',
-                array(
+                array_merge(array(
                     'subject' => 'title',
                     'body' => $this->columns['body']
-                )
+                ), $this->merge)
             );
 
             if (!empty($this->category['table'])) {
