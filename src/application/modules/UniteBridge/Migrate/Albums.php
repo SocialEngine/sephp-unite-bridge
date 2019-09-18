@@ -1,32 +1,22 @@
 <?php
-class UniteBridge_Migrate_Albums extends UniteBridge_Migrate_Actions {
-    protected $actionType = 'album_photo_new';
+class UniteBridge_Migrate_Albums extends UniteBridge_Migrate_Base {
+    protected $table = 'engine4_album_albums';
 
-    protected $join = array(
-        'table' => 'engine4_album_albums',
-        'objectType' => 'album'
-    );
+    protected $tableIdKey = 'album_id';
 
-    protected $category = array(
-        'table' => 'engine4_album_categories'
-    );
+    protected $commentKey = 'album';
 
-    protected $columns = [
-        'id' => 'album_id',
-        'body' => 'description'
-    ];
+    protected $likeKey = 'album';
 
-    protected $mapCustom = [
-        'photos'
-    ];
-
-    protected $resourceType = 'album';
+    protected function query ($query) {
+        $query->where('type IS NULL');
+    }
 
     protected function record ($record) {
         $record['photos'] = [];
         $photos = $image = $this->db->select()
             ->from('engine4_album_photos')
-            ->where('album_id = ?', $record['object_id'])
+            ->where('album_id = ?', $record['id'])
             ->query()
             ->fetchAll();
         foreach ($photos as $photo) {

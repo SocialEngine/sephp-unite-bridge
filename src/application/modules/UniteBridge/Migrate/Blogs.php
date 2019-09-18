@@ -1,13 +1,12 @@
 <?php
-class UniteBridge_Migrate_Blogs extends UniteBridge_Migrate_Actions {
-    protected $actionType = 'blog_new';
+class UniteBridge_Migrate_Blogs extends UniteBridge_Migrate_Base {
+    protected $table = 'engine4_blog_blogs';
 
-    protected $join = array(
-        'table' => 'engine4_blog_blogs',
-        'objectType' => 'blog'
-    );
+    protected $tableIdKey = 'blog_id';
 
-    protected $category = array(
-        'table' => 'engine4_blog_categories'
-    );
+    protected $commentKey = 'blog';
+
+    protected $likeKey = 'blog';
+
+    protected $hasPhoto = true;
 }

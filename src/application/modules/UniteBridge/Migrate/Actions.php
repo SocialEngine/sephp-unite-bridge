@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * Class UniteBridge_Migrate_Actions
+ */
 class UniteBridge_Migrate_Actions extends UniteBridge_Migrate_Base {
     protected $actionType = null;
 

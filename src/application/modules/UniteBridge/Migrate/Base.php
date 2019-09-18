@@ -9,15 +9,41 @@ class UniteBridge_Migrate_Base {
 
     protected $table = null;
 
+    protected $tableIdKey = null;
+
+    protected $commentKey = null;
+
+    protected $likeKey = null;
+
+    protected $hasPhoto = false;
+
+    protected $replacements = [
+        'title' => 'subject',
+        'description' => 'body',
+        'owner_id' => 'user_id'
+    ];
+
+    /**
+     * @var array
+     * @deprecated
+     */
     protected $map = array();
 
+    /**
+     * @var array
+     * @deprecated
+     */
     protected $mapCustom = [];
 
     public function __construct ($options) {
         $this->db = Engine_Db_Table::getDefaultAdapter();
         $this->page = $options['page'];
         $this->limit = $options['limit'];
+
+        $this->init();
     }
+
+    protected function init () {}
 
     /**
      * @param $query Zend_Db_Select
@@ -29,6 +55,16 @@ class UniteBridge_Migrate_Base {
      */
     protected function queryCount ($query) {}
 
+    protected function record ($record) {
+        return $record;
+    }
+
+    /**
+     *
+     * @deprecated
+     * @param $records
+     * @return mixed
+     */
     protected function records ($records) {
         return $records;
     }
@@ -73,17 +109,38 @@ class UniteBridge_Migrate_Base {
             foreach ($rows as $row) {
                 $map = array();
                 foreach ($row as $key => $value) {
-                    if (count($this->mapCustom) && in_array($key, $this->mapCustom)) {
-                        // $key = $key;
-                    } else if (count($this->map)) {
-                        if (!isset($this->map[$key])) {
-                            continue;
-                        }
-                        $key = $this->map[$key];
+                    if (isset($this->replacements[$key])) {
+                        $key = $this->replacements[$key];
+                    }
+                    if ($this->tableIdKey && $this->tableIdKey == $key) {
+                        $key = 'id';
                     }
                     $map[$key] = $value;
                 }
-                $records[] = $map;
+
+                if (isset($map['id'])) {
+                    if ($this->commentKey) {
+                        $map['comments'] = $this->getComments($map['id'], $this->commentKey);
+                    }
+
+                    if ($this->likeKey) {
+                        $map['reactions'] = $this->getLikes($map['id'], $this->likeKey);
+                    }
+
+                    if ($this->hasPhoto) {
+                        $map['photo'] = '';
+                        if ($map['id']) {
+                            $image = $this->db->select()
+                                ->from('engine4_storage_files')
+                                ->where('file_id = ?', $map['id'])
+                                ->query()
+                                ->fetch();
+                            $map['photo'] = 'sephp:/' . $image['storage_path'];
+                        }
+                    }
+                }
+
+                $records[] = $this->record($map);
             }
 
             $records = $this->records($records);

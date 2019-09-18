@@ -17,9 +17,9 @@ class UniteBridge_Bootstrap extends Engine_Application_Bootstrap_Abstract {
     }
 
     private function initRedirects () {
+        return null;
         $settings = Engine_Api::_()->getApi('settings', 'core');
         $url = $settings->unite['url'];
-        return null;
         $redirects = array(
             '/members/home' => '/',
             '/home/action/home' => '/',
@@ -30,9 +30,11 @@ class UniteBridge_Bootstrap extends Engine_Application_Bootstrap_Abstract {
             '/members/settings/network' => '/account/networks',
             '/members/settings/password' => '/account/password',
             '/members/settings/delete' => '/account/membership',
-            '/signout' => '/logout'
+            '/signout' => '/logout',
+            '/videos' => '/videos'
         );
         $uri = rtrim(str_replace('/index.php', '', $_SERVER['REQUEST_URI']), '/');
+        $uriParts = explode('/', $uri);
         $send = '';
         foreach ($redirects as $key => $redirect) {
             $parts = explode('/', ltrim($key, '/'));
@@ -69,8 +71,32 @@ class UniteBridge_Bootstrap extends Engine_Application_Bootstrap_Abstract {
         }
 
         if ($send) {
+            header('HTTP/1.1 301 Moved Permanently');
             header('Location: ' . $url . $send);
             exit;
+        }
+
+        $sectionRedirects = [
+            'forums',
+            'polls',
+            'videos'
+        ];
+        if (!empty($uriParts[1]) && in_array($uriParts[1], $sectionRedirects)) {
+            $endpoint = $settings->unite['url'] . '/api/@SE/SEPHPBridge/redirect';
+            $endpoint .= '?uri=' . urlencode($uri);
+            $apiKey = $settings->unite['apiKey'];
+            $request = new Zend_Http_Client($endpoint);
+            $request->setHeaders(array(
+                'se-client' => 'frontend',
+                'se-api-key' => $apiKey
+            ));
+            $response = $request->request('GET');
+            $body = json_decode($response->getBody());
+            if (!empty($body->to)) {
+                header('HTTP/1.1 301 Moved Permanently');
+                header('Location: ' . $url . $body->to);
+                exit;
+            }
         }
     }
 }
