@@ -18,7 +18,7 @@ class UniteBridge_Migrate_Actions extends UniteBridge_Migrate_Base {
         'type' => 'type',
         'body' => 'body',
         'params' => 'params',
-        'date' => 'date',
+        'date' => 'creation_date',
         'object_id' => 'object_id',
         'object_type' => 'object_type',
         'subject_type' => 'subject_type',
