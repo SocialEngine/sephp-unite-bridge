@@ -146,6 +146,7 @@ class UniteBridge_Migrate_Base {
             $records = $this->records($records);
 
             return array(
+                'table' => $this->table,
                 'total' => $total,
                 'records' => $records
             );
