@@ -11,7 +11,10 @@ class UniteBridge_ApiResource_Base {
     public function __construct ($controller) {
         $this->controller = $controller;
         $this->db = Engine_Db_Table::getDefaultAdapter();
+        $this->init();
     }
+
+    protected function init () {}
 
     protected function transaction ($cb) {
         $this->db->beginTransaction();

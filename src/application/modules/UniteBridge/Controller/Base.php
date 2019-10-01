@@ -19,6 +19,8 @@ class UniteBridge_Controller_Base extends Core_Controller_Action_Standard {
         $params = file_get_contents('php://input');
         if (!empty($params)) {
             $this->params = json_decode($params);
+        } else {
+            $this->params = array_merge($_GET, $_POST);
         }
     }
 

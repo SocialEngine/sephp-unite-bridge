@@ -21,4 +21,8 @@ class UniteBridge_ApiController extends UniteBridge_Controller_Base
     public function usersAction () {
         return $this->apiResource('UniteBridge_ApiResource_User');
     }
+
+    public function groupsAction () {
+        return $this->apiResource('UniteBridge_ApiResource_Groups');
+    }
 }
