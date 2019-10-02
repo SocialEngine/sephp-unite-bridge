@@ -29,6 +29,8 @@ class UniteBridge_IndexController extends Core_Controller_Action_Standard {
             return $this->_helper->redirector->gotoRoute(array(), 'default', true);
         }
 
+        $manifestFile = realpath(dirname(__FILE__) . '/../../Core/settings/manifest.php');
+        $manifest = require($manifestFile);
         $token = $this->getRequest()->get('token');
         $userTable = Engine_Api::_()->getDbtable('users', 'user');
         $settings = Engine_Api::_()->getApi('settings', 'core');
@@ -89,7 +91,11 @@ class UniteBridge_IndexController extends Core_Controller_Action_Standard {
                 exit;
             }
 
-            $authResult = Engine_Api::_()->user()->authenticate($user['email'], $temp);
+            if (version_compare($manifest['package']['version'], '4.10.5', '>=')) {
+                $authResult = Engine_Api::_()->user()->authenticate($user['email'], $temp, $user);
+            } else {
+                $authResult = Engine_Api::_()->user()->authenticate($user['email'], $temp);
+            }
             $authCode = $authResult->getCode();
             Engine_Api::_()->user()->setViewer();
 

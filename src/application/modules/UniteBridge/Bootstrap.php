@@ -17,7 +17,9 @@ class UniteBridge_Bootstrap extends Engine_Application_Bootstrap_Abstract {
     }
 
     private function initRedirects () {
-        return null;
+        if ($_SERVER['HTTP_HOST'] === 'localhost:8080' && !empty($_COOKIE['no_redirects']) && empty($_GET['test_redirect'])) {
+            return null;
+        }
         $settings = Engine_Api::_()->getApi('settings', 'core');
         $url = $settings->unite['url'];
         $redirects = array(
@@ -31,9 +33,11 @@ class UniteBridge_Bootstrap extends Engine_Application_Bootstrap_Abstract {
             '/members/settings/password' => '/account/password',
             '/members/settings/delete' => '/account/membership',
             '/signout' => '/logout',
-            '/videos' => '/videos'
+            '/videos' => '/videos',
+            '/messages' => '/messages'
         );
         $uri = rtrim(str_replace('/index.php', '', $_SERVER['REQUEST_URI']), '/');
+        $uri = explode('?', $uri)[0];
         $uriParts = explode('/', $uri);
         $send = '';
         foreach ($redirects as $key => $redirect) {
@@ -79,7 +83,8 @@ class UniteBridge_Bootstrap extends Engine_Application_Bootstrap_Abstract {
         $sectionRedirects = [
             'forums',
             'polls',
-            'videos'
+            'videos',
+            'messages'
         ];
         if (!empty($uriParts[1]) && in_array($uriParts[1], $sectionRedirects)) {
             $endpoint = $settings->unite['url'] . '/api/@SE/SEPHPBridge/redirect';

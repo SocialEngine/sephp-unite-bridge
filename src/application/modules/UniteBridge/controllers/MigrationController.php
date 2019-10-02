@@ -69,4 +69,8 @@ class UniteBridge_MigrationController extends UniteBridge_Controller_Base
     public function pollsAction () {
         return $this->migrate('UniteBridge_Migrate_Polls');
     }
+
+    public function messagesAction () {
+        return $this->migrate('UniteBridge_Migrate_Messages');
+    }
 }
