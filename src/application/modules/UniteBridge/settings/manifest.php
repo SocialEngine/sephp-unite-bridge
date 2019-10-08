@@ -43,6 +43,10 @@
         array(
             'event' => 'onItemPhoto',
             'resource' => 'UniteBridge_Plugin_Photo'
+        ),
+        array(
+            'event' => 'addActivity',
+            'resource' => 'UniteBridge_Plugin_Core',
         )
     ),
     // Routes --------------------------------------------------------------------
@@ -57,6 +61,14 @@
             'reqs' => array(
                 'action' => '\D+',
                 'item' => '[0-9]+'
+            )
+        ),
+        'bridge_js' => array(
+            'route' => 'bridge/js/:hash/:item',
+            'defaults' => array(
+                'module' => 'unite-bridge',
+                'controller' => 'js',
+                'action' => 'index'
             )
         ),
         'bridge_api' => array(

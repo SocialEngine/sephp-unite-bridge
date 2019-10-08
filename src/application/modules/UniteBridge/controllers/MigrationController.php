@@ -73,4 +73,8 @@ class UniteBridge_MigrationController extends UniteBridge_Controller_Base
     public function messagesAction () {
         return $this->migrate('UniteBridge_Migrate_Messages');
     }
+
+    public function feedAction () {
+        return $this->migrate('UniteBridge_Migrate_Feed');
+    }
 }

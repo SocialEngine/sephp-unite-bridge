@@ -130,4 +130,19 @@ class UniteBridge_Plugin_Core {
             ');
         }
     }
+
+    public function addActivity($event) {
+        $payload = $event->getPayload();
+        $db = Engine_Db_Table::getDefaultAdapter();
+        $action = $db->select()
+            ->from('engine4_activity_actions')
+            ->where('action_id = ?', $payload['action']->action_id)
+            ->query()
+            ->fetch();
+        $action['id'] = $action['action_id'];
+        $action['user_id'] = $action['subject_id'];
+        UniteBridge_Service_ApiService::call('POST', '/activity', [
+            'action' => $action
+        ]);
+    }
 }

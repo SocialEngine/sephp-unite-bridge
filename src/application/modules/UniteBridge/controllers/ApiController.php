@@ -1,7 +1,6 @@
 <?php
 
-class UniteBridge_ApiController extends UniteBridge_Controller_Base
-{
+class UniteBridge_ApiController extends UniteBridge_Controller_Base {
     public function loginAction () {
         try {
             $auth = $this->get();

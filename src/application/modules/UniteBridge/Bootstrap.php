@@ -84,7 +84,8 @@ class UniteBridge_Bootstrap extends Engine_Application_Bootstrap_Abstract {
             'forums',
             'polls',
             'videos',
-            'messages'
+            'messages',
+            'blogs'
         ];
         if (!empty($uriParts[1]) && in_array($uriParts[1], $sectionRedirects)) {
             $endpoint = $settings->unite['url'] . '/api/@SE/SEPHPBridge/redirect';
